@@ -272,10 +272,10 @@ module Groupdate
           if klass.column_names.include?(column_name)
             column = klass.columns_hash[column_name]
             # Check for timezone-aware types
-            # PostgreSQL: timestamptz (displays as "timestamp with time zone")
+            # PostgreSQL: timestamptz (displays as "timestamp with time zone" or "timestamp(N) with time zone")
             # SQL Server: datetimeoffset
             # Other databases may have similar types
-            return true if column.sql_type =~ /timestamp with time zone|datetimeoffset/i
+            return true if column.sql_type =~ /timestamp(\(\d+\))?\s+with\s+time\s+zone|datetimeoffset/i
           end
 
           false
